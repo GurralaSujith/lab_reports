@@ -1,29 +1,26 @@
 const express = require("express");
-
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 app.get("/", (request, response) => {
-  response.status(200).send("Welcome to the Node.js and Express server!");
+  response.send("Welcome to the Node.js and Express server!");
 });
 
 app.get("/about", (request, response) => {
-  response.status(200).json({
+  response.json({
     name: "GURRALA SUJITH",
     section: "CSE GEN AI 2A",
   });
 });
 
 app.get("/time", (request, response) => {
-  response.status(200).send(new Date().toString());
+  const date = new Date().toString();
+  response.send(date);
 });
 
 app.use((request, response) => {
-  response.status(404).send("404 - Page not found");
+  response.send("404 - Page not found");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+app.listen(3000);
 
 module.exports = app;
