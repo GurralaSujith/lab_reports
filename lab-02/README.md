@@ -1,91 +1,144 @@
 # Lab 2: SQLite database and CRUD routes
 
 **Name:** GURRALA SUJITH  
-**Registration number:** 252U1R9045
-**Section:** CSE GEN-AI 2A
+**Registration number:** 252U1R9045  
+**Section:** CSE GEN AI 2A
 
-## Live link
-
-Not deployed yet. Add your deployed public URL here after deployment. If deployment is not possible, explain why and include Postman screenshots for every endpoint.
+**Live link:** Not deployed yet
 
 ## Objective
 
-Connect an Express server to a SQLite database and expose CRUD operations over HTTP.
+Connect an Express server to a SQLite database and perform CRUD operations using HTTP routes. Create a book table, insert sample records, and test all five endpoints using Postman.
 
-## How to install and run
+## How to run
 
-1. Install Node.js.
-2. Open this folder in VS Code.
-3. Install dependencies:
+### Prerequisites
 
-   ```bash
-   npm install
-   ```
+- Node.js and npm installed.
+- VS Code installed.
 
-4. Create the database and insert the sample books:
+### Install dependencies
 
-   ```bash
-   node seed.js
-   ```
+Open the terminal in the `lab-02` folder and run:
 
-5. Start the server with automatic restart:
+```bash
+npm install
+```
 
-   ```bash
-   npm run dev
-   ```
+### Initialize the database
 
-The server runs at `http://localhost:3000`.
+Run the following command to create the database and insert 10 sample books:
+
+```bash
+node seed.js
+```
+
+### Start the server
+
+Run the server using nodemon:
+
+```bash
+npm run dev
+```
+
+The server runs at `http://localhost:3000` by default.
+
+## Database structure
+
+The database file is `books.db`, and the table name is `book`.
+
+| Column | Data type | Description     |
+| ------ | --------- | --------------- |
+| id     | INTEGER   | Primary key     |
+| title  | TEXT      | Book title      |
+| author | TEXT      | Book author     |
+| price  | INTEGER   | Book price      |
+| pages  | INTEGER   | Number of pages |
 
 ## Endpoints
 
-| Method | Path              | Description                 |
-| ------ | ----------------- | --------------------------- |
-| GET    | `/books/`         | Get all books               |
-| GET    | `/books/:bookId/` | Get one book by ID          |
-| POST   | `/books/`         | Add a book                  |
-| PUT    | `/books/:bookId/` | Update all fields of a book |
-| DELETE | `/books/:bookId/` | Delete a book               |
+| Method | Path              | Description                   | Expected status |
+| ------ | ----------------- | ----------------------------- | --------------- |
+| GET    | `/books/`         | Returns all books.            | `200 OK`        |
+| GET    | `/books/:bookId/` | Returns a book by its ID.     | `200 OK`        |
+| POST   | `/books/`         | Adds a new book.              | `201 Created`   |
+| PUT    | `/books/:bookId/` | Updates all fields of a book. | `200 OK`        |
+| DELETE | `/books/:bookId/` | Deletes a book by its ID.     | `200 OK`        |
 
-### POST request body example
+### Example POST and PUT request body
+
+Select **Body → raw → JSON** in Postman and enter:
 
 ```json
 {
-  "title": "The Alchemist",
-  "author": "Paulo Coelho",
-  "price": 250,
-  "pages": 208
+  "title": "New Book",
+  "author": "Test Author",
+  "price": 300,
+  "pages": 250
 }
 ```
 
-Use the same JSON structure for `PUT`, changing the values as needed. In Postman, choose **Body → raw → JSON** for POST and PUT.
-
 ## Screenshots
 
-Save your actual Postman and SQLite screenshots in the `screenshots/` folder, then add them here. Example:
+### 1. Get all books
 
-```md
-![Get all books](screenshots/get-all-books.png)
-![Get one book](screenshots/get-one-book.png)
-![Add a book](screenshots/post-book.png)
-![Update a book](screenshots/put-book.png)
-![Delete a book](screenshots/delete-book.png)
-![SQLite database](screenshots/sqlite-database.png)
-```
+![Get all books](./screenshots/get-all-books.png)
+
+### 2. Get one book
+
+![Get one book](./screenshots/get-one-book.png)
+
+### 3. Add a book
+
+![Add a book](./screenshots/post-book.png)
+
+### 4. Update a book
+
+![Update a book](./screenshots/put-book.png)
+
+### 5. Delete a book
+
+![Delete a book](./screenshots/delete-book.png)
+
+### 6. SQLite database
+
+![SQLite database](./screenshots/sqlite-database.png)
 
 ## Notes: problems faced and how they were solved
 
-- Used `async/await` so database operations finish before a response is sent.
-- Used `?` placeholders and parameter arrays to prevent SQL injection.
-- Returned `404` when a requested book does not exist.
-- Added `.gitignore` so `node_modules` and `.env` are not committed.
+- **Database connection:** Used `async/await` to wait for database operations to complete.
+- **SQL injection:** Used parameterized queries with `?` placeholders to safely pass user input.
+- **Book not found:** Returned `404 Not Found` when a requested book does not exist.
+- **Port already in use:** Stopped the other server process before starting the application.
+- **Screenshot display:** Used relative image paths and filenames without spaces.
+- **GitHub submission:** Added `.gitignore` to exclude `node_modules` and `.env`.
 
-## Viva preparation
+## Viva questions
 
-**1. Why await the database call?**  
-It waits for the database operation to finish before the next dependent step runs.
+**1. Why do we use `await` for database calls?**
 
-**2. What is SQL injection and how do placeholders prevent it?**  
-SQL injection is when malicious input changes a SQL query. Parameterized queries keep user input separate from SQL code.
+It waits for a database operation to complete before executing the next dependent operation.
 
-**3. When is PUT used instead of POST?**  
-POST creates a new resource. PUT updates an existing resource identified by its URL.
+**2. What is SQL injection, and how do placeholders prevent it?**
+
+SQL injection is an attack where malicious input changes a SQL query. Parameterized queries keep user input separate from SQL commands.
+
+**3. When is PUT used instead of POST?**
+
+POST is used to create a new resource, while PUT is used to update an existing resource.
+
+**4. What are CRUD operations?**
+
+CRUD stands for Create, Read, Update, and Delete.
+
+**5. Why do we use SQLite?**
+
+SQLite is a lightweight relational database that stores data in a file and does not require a separate database server.
+
+## Submission
+
+- Upload the `lab-02` folder to the course GitHub repository.
+- Include `server.js`, `seed.js`, `books.db`, `package.json`, `.gitignore`, and `README.md`.
+- Include all six screenshots in the `screenshots/` folder.
+- Do not commit `node_modules` or `.env`.
+- Add the public deployment URL after successfully deploying the backend. If deployment is not possible, explain why and provide screenshots of all five endpoints.
