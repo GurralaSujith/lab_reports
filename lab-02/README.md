@@ -4,7 +4,7 @@
 **Registration number:** 252U1R9045  
 **Section:** CSE GEN AI 2A
 
-**Live link:** 
+**Live link:** Not deployed yet
 
 ## Objective
 
@@ -42,6 +42,17 @@ npm run dev
 ```
 
 The server runs at `http://localhost:3000` by default.
+
+## Deploy to Render
+
+Create a **Web Service** from this repository and configure:
+
+- **Root Directory:** `lab-02`
+- **Build Command:** `npm_config_build_from_source=true npm ci`
+- **Start Command:** `npm start`
+
+The build command compiles SQLite on Render instead of using a prebuilt native
+binary that may require a newer GLIBC version than Render provides.
 
 ## Database structure
 
