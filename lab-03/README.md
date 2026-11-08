@@ -4,7 +4,7 @@
 **Registration number:** 252U1R9045  
 **Section:** CSE GEN AI 2A
 
-**Live link:** Not deployed yet
+**Live link:** https://lab-reports-3-2nrf.onrender.com/books
 
 ## Objective
 
