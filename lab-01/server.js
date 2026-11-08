@@ -13,11 +13,12 @@ app.get("/about", (request, response) => {
 });
 
 app.get("/time", (request, response) => {
-  response.send(new Date().toString());
+  const date = new Date().toString();
+  response.send(date);
 });
 
 app.use((request, response) => {
-  response.status(404).send("404 - Page not found");
+  response.send("404 - Page not found");
 });
 
 app.listen(3000);
